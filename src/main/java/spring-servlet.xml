@@ -1,0 +1,46 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DataSource -->
+	<bean id="dS"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/test"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+
+
+
+	<!--for jdbctemplete -->
+	<bean id="jtemp" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dS"></property>
+	</bean>
+
+
+	<!-- for namedparameterjdbctemplate -->
+	<bean id="namedparameterjdbctemplate"
+		class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="dS"></constructor-arg>
+	</bean>
+
+
+	<!-- for simplejedbc templete -->
+	<bean id="simplejdbctemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
+		<constructor-arg ref="dS"></constructor-arg>
+	</bean>
+
+
+
+
+	<bean id="myDAO" class="com.scp.jdbc.jdbcTemplete.DaoImpli">
+		<property name="Simplejdbctemplate" ref="simplejdbctemplate"></property>
+	</bean>
+
+
+</beans>
